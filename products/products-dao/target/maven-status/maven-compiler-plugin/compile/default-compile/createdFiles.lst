@@ -1,0 +1,5 @@
+com\fujitsu\fs\rnovikov\utils\ConnectionPool.class
+com\fujitsu\fs\rnovikov\utils\PropertiesJson.class
+com\fujitsu\fs\rnovikov\dao\ProductDaoImpl.class
+com\fujitsu\fs\rnovikov\entities\Product.class
+com\fujitsu\fs\rnovikov\dao\ProductDao.class

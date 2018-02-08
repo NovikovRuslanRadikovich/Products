@@ -1,0 +1,1 @@
+ALTER TABLE Product ALTER COLUMN description RENAME TO detailed_description;

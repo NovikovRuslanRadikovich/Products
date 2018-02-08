@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>products</artifactId>
+        <groupId>ruslan</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>products-web</artifactId>
+
+    <packaging>war</packaging>
+
+    <properties>
+        <hsqldb.url>jdbc:hsqldb:hsql://localhost/mydb</hsqldb.url>
+        <hsqldb.user>SA</hsqldb.user>
+        <hsqldb.password></hsqldb.password>
+
+        <tomcat.type>tomcat8x</tomcat.type>
+        <tomcat.version>8.5.23</tomcat.version>
+        <http.port>8081</http.port>
+        <rmi.port>1099</rmi.port>
+        <http.context>/</http.context>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+
+                    <container>
+                        <containerId>${tomcat.type}</containerId>
+                        <artifactInstaller>
+                            <groupId>org.apache.tomcat</groupId>
+                            <artifactId>tomcat</artifactId>
+                            <version>${tomcat.version}</version>
+                            <type>zip</type>
+                        </artifactInstaller>
+                    </container>
+
+                    <configuration>
+                        <properties>
+                            <cargo.servlet.port>${http.port}</cargo.servlet.port>
+                            <cargo.rmi.port>${rmi.port}</cargo.rmi.port>
+                            <cargo.servlet.uriencoding>UTF-8</cargo.servlet.uriencoding>
+                        </properties>
+                    </configuration>
+
+                    <deployables>
+                        <deployable>
+                            <properties>
+                                <context>${http.context}</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
+
+                <executions>
+
+                    <execution>
+                        <id>start-container</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>stop-container</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>ruslan</groupId>
+            <artifactId>products-dao</artifactId>
+        </dependency>
+
+    </dependencies>
+
+
+</project>
